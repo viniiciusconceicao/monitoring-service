@@ -1,0 +1,19 @@
+{
+  "checks": {
+    "RAM": {
+      "command": "check-ram.rb -w 10 -c 5",
+      "subscribers": [ "all" ],
+      "interval": 60
+    },
+    "memory_metrics_p": {
+      "command": "metrics-memory-percent.rb",
+      "subscribers": [ "all" ],
+      "interval": 5
+    },
+    "memory_metrics": {
+      "command": "metrics-memory.rb",
+      "subscribers": [ "all" ],
+      "interval": 5
+    }
+  }
+}

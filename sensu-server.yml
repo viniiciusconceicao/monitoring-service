@@ -1,0 +1,29 @@
+api:
+  image: sstarcher/sensu
+  command: api
+  links:
+    - rabbitmq
+    - redis
+  volumes:
+    - ./check.d:/etc/sensu/check.d
+server:
+  image: sstarcher/sensu
+  command: server
+  links:
+    - rabbitmq
+    - redis
+    - api
+  volumes:
+    - ./check.d:/etc/sensu/check.d
+uchiwa:
+  image: sstarcher/uchiwa
+  links:
+    - api:sensu
+  ports:
+    - '80:3000'
+rabbitmq:
+  image: rabbitmq:3.6-management
+  ports:
+    - '5672:5672'
+redis:
+  image: redis
