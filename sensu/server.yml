@@ -6,8 +6,9 @@ api:
     - redis
   volumes:
     - ./check.d:/etc/sensu/check.d
+    - ./handlers:/etc/sensu/handlers
 server:
-  image: sstarcher/sensu
+  image: guimaluf/sensu
   command: server
   links:
     - rabbitmq
@@ -15,6 +16,10 @@ server:
     - api
   volumes:
     - ./check.d:/etc/sensu/check.d
+    - ./handlers:/etc/sensu/handlers
+    #- ./extensions:/etc/sensu/extensions
+  environment:
+    LOG_LEVEL: debug
 uchiwa:
   image: sstarcher/uchiwa
   links:

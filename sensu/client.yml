@@ -1,16 +1,20 @@
 client:
-  image: sstarcher/sensu
+  image: guimaluf/sensu
   command: client
   hostname: roadrash
   volumes:
    - /dev:/host_dev/:ro
    - /proc:/host_proc/:ro
    - /sys:/host_sys/:ro
+  volumes:
+    - ./check.d:/etc/sensu/check.d
+    - ./handlers:/etc/sensu/handlers
+    - ./extensions:/etc/sensu/extensions
   environment:
     CLIENT_NAME: roadrash
     CLIENT_ADDRESS: 150.164.3.220
     CLIENT_SUBSCRIPTIONS: all,default
-    CLIENT_KEEPALIVE_HANDLER: default
+    CLIENT_KEEPALIVE_HANDLER: file
     RABBITMQ_HOST: 150.164.3.220
     HOST_DEV_DIR: /host_dev
     HOST_PROC_DIR: /host_proc

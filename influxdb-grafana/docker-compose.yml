@@ -1,0 +1,17 @@
+influxdb:
+  image: tutum/influxdb:latest
+  ports:
+    - "8083:8083"
+    - "8086:8086"
+    - "8090:8090"
+    - "8089:8089/udp"
+  environment:
+    PRE_CREATE_DB: sensu
+    UDP_DB: sensu
+    UDP_PORT: 8089
+grafana:
+  image: grafana/grafana:latest
+  ports:
+    - "3000:3000"
+  links:
+    - influxdb
