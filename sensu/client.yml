@@ -6,18 +6,13 @@ client:
    - /dev:/host_dev/:ro
    - /proc:/host_proc/:ro
    - /sys:/host_sys/:ro
-  volumes:
-    - ./check.d:/etc/sensu/check.d
-    - ./handlers:/etc/sensu/handlers
-    - ./extensions:/etc/sensu/extensions
+   - ./handlers:/etc/sensu/handlers
   environment:
     CLIENT_NAME: roadrash
     CLIENT_ADDRESS: 150.164.3.220
     CLIENT_SUBSCRIPTIONS: all,default
-    CLIENT_KEEPALIVE_HANDLER: file
     RABBITMQ_HOST: 150.164.3.220
+    RABBITMQ_PORT: 5672
     HOST_DEV_DIR: /host_dev
     HOST_PROC_DIR: /host_proc
     HOST_SYS_DIR: /host_sys
-    RUNTIME_INSTALL: memory-checks network-checks disk-checks load-checks process-checks docker io-checks cpu-checks
-

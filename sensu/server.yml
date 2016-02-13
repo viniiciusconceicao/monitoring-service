@@ -6,9 +6,10 @@ api:
     - redis
   volumes:
     - ./check.d:/etc/sensu/check.d
-    - ./handlers:/etc/sensu/handlers
+  environment:
+    RABBITMQ_PORT: 5672
 server:
-  image: guimaluf/sensu
+  image: sstarcher/sensu
   command: server
   links:
     - rabbitmq
@@ -17,8 +18,8 @@ server:
   volumes:
     - ./check.d:/etc/sensu/check.d
     - ./handlers:/etc/sensu/handlers
-    #- ./extensions:/etc/sensu/extensions
   environment:
+    RABBITMQ_PORT: 5672
     LOG_LEVEL: debug
 uchiwa:
   image: sstarcher/uchiwa
@@ -27,7 +28,7 @@ uchiwa:
   ports:
     - '80:3000'
 rabbitmq:
-  image: rabbitmq:3.6-management
+  image: rabbitmq:3.5-management
   ports:
     - '5672:5672'
 redis:
