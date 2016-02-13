@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "memory_metrics_p": {
+      "type": "metric",
+      "command": "metrics-memory-percent.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["debug"]
+    },
+    "memory_metrics": {
+      "type": "metric",
+      "command": "metrics-memory.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["debug"]
+    },
+    "cpu_metrics": {
+      "type": "metric",
+      "command": "check-cpu.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["debug"]
+    },
+    "load_metrics": {
+      "type": "metric",
+      "command": "check-load.rb -p",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["debug"]
+    }
+  }
+}
