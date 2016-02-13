@@ -5,28 +5,28 @@
       "command": "metrics-memory-percent.rb",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["debug"]
+      "handlers": ["influxdb"]
     },
     "memory_metrics": {
       "type": "metric",
       "command": "metrics-memory.rb",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["debug"]
+      "handlers": ["influxdb"]
     },
     "cpu_metrics": {
       "type": "metric",
-      "command": "check-cpu.rb",
+      "command": "metrics-cpu.rb",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["debug"]
+      "handlers": ["influxdb"]
     },
     "load_metrics": {
       "type": "metric",
-      "command": "check-load.rb -p",
+      "command": "metrics-load.rb -p",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["debug"]
+      "handlers": ["influxdb"]
     }
   }
 }
