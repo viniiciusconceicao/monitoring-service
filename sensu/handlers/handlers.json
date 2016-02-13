@@ -1,0 +1,32 @@
+{
+  "handlers": {
+    "file": {
+      "type": "pipe",
+      "command": "/etc/sensu/handlers/event-file.rb",
+      "timeout": 10
+    },
+    "tcp_socket": {
+      "type": "tcp",
+      "socket": {
+        "host": "150.164.3.220",
+        "port": 6000
+      }
+    },
+    "transport": {
+      "type": "transport",
+      "pipe": {
+        "type": "direct",
+        "name": "events"
+      }
+    },
+    "default": {
+      "type": "set",
+      "handlers": [
+        "debug",
+        "file",
+        "tcp_socket",
+        "transport"
+      ]
+    }
+  }
+}
