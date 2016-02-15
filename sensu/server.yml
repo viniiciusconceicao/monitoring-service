@@ -21,7 +21,6 @@ server:
     - ./extensions:/etc/sensu/extensions
   environment:
     RABBITMQ_PORT: 5672
-    LOG_LEVEL: debug
 uchiwa:
   image: sstarcher/uchiwa
   links:
