@@ -33,8 +33,12 @@ rabbitmq:
     - '5672:5672'
 redis:
   image: redis
+  volumes:
+    - /var/redis:/data
 influxdb:
   image: tutum/influxdb:latest
+  volumes:
+    - /var/influxdb:/data
   ports:
     - "8083:8083"
     - "8086:8086"
