@@ -16,7 +16,7 @@
     },
     "cpu_metrics": {
       "type": "metric",
-      "command": "metrics-cpu.rb",
+      "command": "metrics-cpu-pcnt-usage.rb",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
