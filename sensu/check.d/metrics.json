@@ -27,6 +27,20 @@
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
+    },
+    "disk_metrics": {
+      "type": "metric",
+      "command": "metrics-disk.rb -I sda",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "net_metrics": {
+      "type": "metric",
+      "command": "metrics-net.rb -i 'veth*|sit*|tun*|docker*'",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
     }
   }
 }
