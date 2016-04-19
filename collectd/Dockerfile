@@ -3,7 +3,6 @@ MAINTAINER Vinicius Silva <sender@example.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     snmp \
-    snmpd \
     libperl-dev \
     libsensors4-dev \
     collectd \
