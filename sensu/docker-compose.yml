@@ -48,9 +48,17 @@ influxdb:
     PRE_CREATE_DB: sensu
     UDP_DB: sensu
     UDP_PORT: 8089
+    COLLECTD_DB: collectd
 grafana:
   image: grafana/grafana:latest
   ports:
     - "3000:3000"
+  links:
+    - influxdb
+collectd:
+  build: ../collectd
+  volumes:
+    - ../collectd/conf.d:/etc/collectd/collectd.conf.d
+    - /srv/collectd:/var/lib/collectd
   links:
     - influxdb
