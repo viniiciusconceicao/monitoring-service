@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     collectd \
   && rm -rf /var/lib/apt/lists/*
 
+COPY collectd.conf /etc/collectd/collectd.conf
+
 VOLUME /var/lib/collectd/
 
 CMD ["collectd", "-f"]
