@@ -1,6 +1,6 @@
 {
   "influxdb": {
-    "server"     : "150.164.3.220",
+    "server"     : "influxdb",
     "port"       : "8086",
     "username"   : "root",
     "password"   : "root",
@@ -10,7 +10,7 @@
     "influxdb": {
       "type"  : "udp",
       "socket": {
-        "host": "150.164.3.220",
+        "host": "influxdb",
         "port": 8089
       }
     },

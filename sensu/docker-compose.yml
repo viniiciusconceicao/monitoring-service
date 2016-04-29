@@ -15,6 +15,7 @@ server:
     - rabbitmq
     - redis
     - api
+    - influxdb
   volumes:
     - ./check.d:/etc/sensu/check.d
     - ./handlers:/etc/sensu/handlers
