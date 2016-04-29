@@ -8,7 +8,7 @@
     "tcp_socket": {
       "type": "tcp",
       "socket": {
-        "host": "150.164.3.220",
+        "host": "influxdb",
         "port": 6000
       }
     },
@@ -31,7 +31,7 @@
       "type": "udp",
       "mutator": "influxdb_line_protocol",
       "socket": {
-        "host": "150.164.3.220",
+        "host": "influxdb",
         "port": 8089
       }
     }
