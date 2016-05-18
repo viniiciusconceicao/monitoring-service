@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "memory_metrics_p": {
+      "type": "metric",
+      "command": "metrics-memory-percent.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "memory_metrics": {
+      "type": "metric",
+      "command": "metrics-memory.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "cpu_metrics": {
+      "type": "metric",
+      "command": "metrics-cpu-pcnt-usage.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "load_metrics": {
+      "type": "metric",
+      "command": "metrics-load.rb -p",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "disk_metrics": {
+      "type": "metric",
+      "command": "metrics-disk.rb -I sda",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    },
+    "net_metrics": {
+      "type": "metric",
+      "command": "metrics-net.rb -i 'veth*|sit*|tun*|docker*'",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb"]
+    }
+  }
+}

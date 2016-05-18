@@ -1,0 +1,13 @@
+[Unit]
+Description=Docker-compose monitoring service
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/usr/local/bin/docker-compose -f /home/guimaluf/workspace/docker/monitoring-environment/sensu/docker-compose.yml up --no-recreate
+ExecStop=/usr/local/bin/docker-compose -f /home/guimaluf/workspace/docker/monitoring-environment/sensu/docker-compose.yml stop
+ExecReload=/usr/local/bin/docker-compose -f /home/guimaluf/workspace/docker/monitoring-environment/sensu/docker-compose.yml restart $i
+
+[Install]
+WantedBy=multi-user.target
