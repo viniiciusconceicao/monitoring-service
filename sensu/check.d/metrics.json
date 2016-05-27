@@ -2,42 +2,42 @@
   "checks": {
     "memory_metrics_p": {
       "type": "metric",
-      "command": "metrics-memory-percent.rb",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory-percent.rb",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
     },
     "memory_metrics": {
       "type": "metric",
-      "command": "metrics-memory.rb",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory.rb",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
     },
     "cpu_metrics": {
       "type": "metric",
-      "command": "metrics-cpu-pcnt-usage.rb",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-cpu-pcnt-usage.rb",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
     },
     "load_metrics": {
       "type": "metric",
-      "command": "metrics-load.rb -p",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-load.rb -p",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
     },
     "disk_metrics": {
       "type": "metric",
-      "command": "metrics-disk.rb -I sda",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-disk.rb -I sda",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
     },
     "net_metrics": {
       "type": "metric",
-      "command": "metrics-net.rb -i 'veth*|sit*|tun*|docker*'",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-net.rb -i 'veth*|sit*|tun*|docker*'",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb"]
