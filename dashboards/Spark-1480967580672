@@ -1,0 +1,1686 @@
+{
+  "id": 7,
+  "title": "Spark",
+  "originalTitle": "Spark",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "total",
+              "color": "#F2C96D",
+              "linewidth": 7,
+              "yaxis": 2,
+              "zindex": 3
+            }
+          ],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "executor.filesystem.hdfs.read_bytes",
+              "query": "SELECT mean(\"value\") FROM \"executor.filesystem.hdfs.read_bytes\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ]
+            },
+            {
+              "alias": "Total",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "executor.filesystem.hdfs.read_bytes",
+              "query": "SELECT sum(\"value\") FROM \"executor.filesystem.hdfs.read_bytes\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Executor HDFS reads",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "expr": "filesystem_usage{exported_job=\"write_bytes\", fs_type=\"hdfs\", application=\"$application_ID\"}",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{executor_id}}",
+              "measurement": "executor.filesystem.hdfs.write_bytes",
+              "metric": "filesystem_usage",
+              "query": "SELECT mean(\"value\") FROM \"executor.filesystem.hdfs.write_bytes\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Executor HDFS writes",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "interval": "$tint",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "total",
+              "yaxis": 2
+            }
+          ],
+          "span": 4,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Average",
+              "dsType": "influxdb",
+              "expr": "avg(rate(filesystem_usage{exported_job=\"read_bytes\", fs_type=\"hdfs\", application=\"$application_ID\"}[1m]))",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "average",
+              "measurement": "executor.filesystem.hdfs.read_bytes",
+              "metric": "filesystem_usage",
+              "query": "SELECT derivative(mean(\"value\"), $interval) FROM \"executor.filesystem.hdfs.read_bytes\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  },
+                  {
+                    "params": [
+                      "$interval"
+                    ],
+                    "type": "derivative"
+                  }
+                ]
+              ],
+              "step": 1,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "Total",
+              "dsType": "influxdb",
+              "expr": "avg(rate(filesystem_usage{exported_job=\"read_bytes\", fs_type=\"hdfs\", application=\"$application_ID\"}[1m]))",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "average",
+              "measurement": "executor.filesystem.hdfs.read_bytes",
+              "metric": "filesystem_usage",
+              "query": "SELECT derivative(sum(\"value\"), $interval) FROM \"executor.filesystem.hdfs.read_bytes\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "sum"
+                  },
+                  {
+                    "params": [
+                      "$interval"
+                    ],
+                    "type": "derivative"
+                  }
+                ]
+              ],
+              "step": 1,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HDFS Read Rate / s",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "Bps",
+            "short"
+          ]
+        }
+      ],
+      "title": "HDFS stats"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 4,
+          "interval": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "jvm.heap.usage",
+              "query": "SELECT mean(\"value\") FROM \"jvm.heap.usage\" WHERE \"instance\" =~ /$Application_ID$/ AND \"profile\" = 'driver' AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "profile",
+                  "operator": "=",
+                  "value": "driver"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Driver Heap Usage",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$m",
+              "dsType": "influxdb",
+              "expr": "jvm_memory_pools{executor_id=\"driver\", application=\"$application_ID\",qty=\"used\"}",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{mem_type}}",
+              "measurement": "/jvm.pools.*.used/",
+              "metric": "jvm_memory_pools",
+              "query": "SELECT mean(\"value\") FROM /jvm.pools.*.used/ WHERE \"instance\" =~ /$Application_ID$/ AND \"profile\" = 'driver' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "profile",
+                  "operator": "=",
+                  "value": "driver"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Driver JVM Memory Pools",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bytes",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 6,
+          "interval": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "expr": "jvm_memory_usage{mem_type=\"heap\", qty=\"usage\", application=\"$application_ID\", executor_id!~\"driver\"} ",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{executor_id}}",
+              "measurement": "jvm.heap.usage",
+              "metric": "jvm_memory_usage",
+              "query": "SELECT mean(\"value\") FROM \"jvm.heap.usage\" WHERE \"instance\" =~ /$Application_ID$/ AND \"profile\" <> 'driver' AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "profile",
+                  "operator": "<>",
+                  "value": "driver"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Executor Heap Usage",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 7,
+          "interval": "",
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "expr": "jvm_memory_pools{executor_id!~\"driver\", application=\"$application_ID\",qty=\"usage\", mem_type=\"PS-Eden-Space\"}",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{executor_id}}",
+              "measurement": "jvm.pools.PS-Eden-Space.usage",
+              "metric": "jvm_memory_pools",
+              "query": "SELECT mean(\"value\") FROM \"jvm.pools.PS-Eden-Space.usage\" WHERE \"instance\" =~ /$Application_ID$/ AND \"profile\" <> 'driver' AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "profile",
+                  "operator": "<>",
+                  "value": "driver"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Executor Eden-Space",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_profile",
+              "dsType": "influxdb",
+              "expr": "jvm_memory_pools{executor_id!~\"driver\", application=\"$application_ID\",qty=\"usage\", mem_type=\"PS-Old-Gen\"}",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "profile"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{executor_id}}",
+              "measurement": "jvm.pools.PS-Old-Gen.usage",
+              "metric": "jvm_memory_pools",
+              "query": "SELECT mean(\"value\") FROM \"jvm.pools.PS-Old-Gen.usage\" WHERE \"instance\" =~ /$Application_ID$/ AND \"profile\" <> 'driver' AND $timeFilter GROUP BY time($interval), \"profile\" fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "profile",
+                  "operator": "<>",
+                  "value": "driver"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Executor Old-Gen",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": "jvm",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "completeTasks",
+              "yaxis": 2
+            }
+          ],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "expr": "sum(executor_tasks{application=\"$application_ID\", qty!~\"maxPool_size\"}) by (qty)",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": true,
+              "intervalFactor": 2,
+              "legendFormat": "{{qty}}",
+              "measurement": "/executor.threadpool.*/",
+              "query": "SELECT mean(\"value\") FROM /executor.threadpool.*/ WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "Active",
+              "dsType": "influxdb",
+              "expr": "sum(executor_tasks{application=\"$application_ID\", qty!~\"maxPool_size\"}) by (qty)",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{qty}}",
+              "measurement": "executor.threadpool.activeTasks",
+              "query": "SELECT mean(\"value\") FROM \"executor.threadpool.activeTasks\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "Complete",
+              "dsType": "influxdb",
+              "expr": "sum(executor_tasks{application=\"$application_ID\", qty!~\"maxPool_size\"}) by (qty)",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{qty}}",
+              "measurement": "executor.threadpool.completeTasks",
+              "query": "SELECT mean(\"value\") FROM \"executor.threadpool.completeTasks\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            },
+            {
+              "alias": "CurrentPool",
+              "dsType": "influxdb",
+              "expr": "sum(executor_tasks{application=\"$application_ID\", qty!~\"maxPool_size\"}) by (qty)",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "intervalFactor": 2,
+              "legendFormat": "{{qty}}",
+              "measurement": "executor.threadpool.currentPool_size",
+              "query": "SELECT mean(\"value\") FROM \"executor.threadpool.currentPool_size\" WHERE \"instance\" =~ /$Application_ID$/ AND $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "step": 2,
+              "tags": [
+                {
+                  "key": "instance",
+                  "operator": "=~",
+                  "value": "/$Application_ID$/"
+                }
+              ],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Tasks",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    }
+  ],
+  "time": {
+    "from": "2016-12-05T17:33:35.999Z",
+    "to": "2016-12-05T17:39:28.393Z"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": [
+      {
+        "allFormat": "regex values",
+        "current": {
+          "text": "application_1480372660075_0047",
+          "value": "application_1480372660075_0047"
+        },
+        "datasource": "jvm",
+        "includeAll": false,
+        "multi": false,
+        "multiFormat": "regex values",
+        "name": "Application_ID",
+        "options": [
+          {
+            "text": "DAGScheduler",
+            "value": "DAGScheduler",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0007",
+            "value": "application_1480372660075_0007",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0008",
+            "value": "application_1480372660075_0008",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0009",
+            "value": "application_1480372660075_0009",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0012",
+            "value": "application_1480372660075_0012",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0013",
+            "value": "application_1480372660075_0013",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0014",
+            "value": "application_1480372660075_0014",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0015",
+            "value": "application_1480372660075_0015",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0016",
+            "value": "application_1480372660075_0016",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0017",
+            "value": "application_1480372660075_0017",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0018",
+            "value": "application_1480372660075_0018",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0019",
+            "value": "application_1480372660075_0019",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0020",
+            "value": "application_1480372660075_0020",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0021",
+            "value": "application_1480372660075_0021",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0022",
+            "value": "application_1480372660075_0022",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0023",
+            "value": "application_1480372660075_0023",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0024",
+            "value": "application_1480372660075_0024",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0025",
+            "value": "application_1480372660075_0025",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0026",
+            "value": "application_1480372660075_0026",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0027",
+            "value": "application_1480372660075_0027",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0028",
+            "value": "application_1480372660075_0028",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0029",
+            "value": "application_1480372660075_0029",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0030",
+            "value": "application_1480372660075_0030",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0031",
+            "value": "application_1480372660075_0031",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0032",
+            "value": "application_1480372660075_0032",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0033",
+            "value": "application_1480372660075_0033",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0034",
+            "value": "application_1480372660075_0034",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0035",
+            "value": "application_1480372660075_0035",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0036",
+            "value": "application_1480372660075_0036",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0037",
+            "value": "application_1480372660075_0037",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0038",
+            "value": "application_1480372660075_0038",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0039",
+            "value": "application_1480372660075_0039",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0040",
+            "value": "application_1480372660075_0040",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0041",
+            "value": "application_1480372660075_0041",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0042",
+            "value": "application_1480372660075_0042",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0043",
+            "value": "application_1480372660075_0043",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0044",
+            "value": "application_1480372660075_0044",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0045",
+            "value": "application_1480372660075_0045",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0046",
+            "value": "application_1480372660075_0046",
+            "selected": false
+          },
+          {
+            "text": "application_1480372660075_0047",
+            "value": "application_1480372660075_0047",
+            "selected": true
+          },
+          {
+            "text": "local-1480637251801",
+            "value": "local-1480637251801",
+            "selected": false
+          },
+          {
+            "text": "local-1480637532110",
+            "value": "local-1480637532110",
+            "selected": false
+          },
+          {
+            "text": "local-1480705937750",
+            "value": "local-1480705937750",
+            "selected": false
+          },
+          {
+            "text": "local-1480707191370",
+            "value": "local-1480707191370",
+            "selected": false
+          },
+          {
+            "text": "local-1480954697510",
+            "value": "local-1480954697510",
+            "selected": false
+          },
+          {
+            "text": "servers",
+            "value": "servers",
+            "selected": false
+          }
+        ],
+        "query": "SHOW TAG VALUES WITH KEY = \"instance\" ",
+        "refresh": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "auto": true,
+        "auto_count": 5,
+        "current": {
+          "tags": [],
+          "text": "1s",
+          "value": "1s"
+        },
+        "datasource": null,
+        "includeAll": false,
+        "label": "Time Interval",
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "tint",
+        "options": [
+          {
+            "selected": false,
+            "text": "auto",
+            "value": "$__auto_interval"
+          },
+          {
+            "selected": true,
+            "text": "1s",
+            "value": "1s"
+          },
+          {
+            "selected": false,
+            "text": "5s",
+            "value": "5s"
+          },
+          {
+            "selected": false,
+            "text": "10s",
+            "value": "10s"
+          },
+          {
+            "selected": false,
+            "text": "20s",
+            "value": "20s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          }
+        ],
+        "query": "1s,5s,10s,20s,1m,5m,10m,30m,1h,6h",
+        "refresh": false,
+        "type": "interval"
+      }
+    ]
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": false,
+  "schemaVersion": 8,
+  "version": 68,
+  "links": []
+}
