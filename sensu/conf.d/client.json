@@ -1,11 +1,7 @@
 {
   "client": {
-    "socket": {
-      "bind": "127.0.0.0"
-    },
-    "name": "roadrash",
-    "address": "150.164.3.220",
-    "subscriptions": [ "all","default" ],
-    "keepalive": { "handler": "default" }
+    "name": "server",
+    "address": "127.0.0.1",
+    "subscriptions": [ "ALL" ]
   }
 }

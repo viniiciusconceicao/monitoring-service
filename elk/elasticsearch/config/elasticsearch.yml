@@ -1,0 +1,6 @@
+network.host: 172.17.0.11
+
+# this value is required because we set "network.host"
+# be sure to modify it appropriately for a production cluster deployment
+discovery.zen.minimum_master_nodes: 1
+

@@ -1,0 +1,28 @@
+input {
+  tcp {
+      port => 5000
+      codec => json_lines
+      type  => "systemd"
+  }
+}
+
+filter {
+  if [type] == "systemd" {
+    mutate {
+      gsub => [ "__REALTIME_TIMESTAMP", ".{3}$", "" ]
+      rename => [ "MESSAGE", "message" ]
+      rename => [ "_SYSTEMD_UNIT", "program" ]
+    }
+    date {
+      match => [ "__REALTIME_TIMESTAMP", "UNIX_MS"]
+      timezone => "UTC"
+      target => "@timestamp"
+    }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => "elasticsearch:9200"
+  }
+}

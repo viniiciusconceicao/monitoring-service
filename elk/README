@@ -1,0 +1,2 @@
+TO INCREASE VIRTUAL MEMORY FOR ELASTIC SEARCH
+sysctl -w vm.max_map_count=262144
