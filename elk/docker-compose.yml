@@ -1,26 +1,25 @@
 elasticsearch:
-  image: elasticsearch:latest
-  command: elasticsearch -Des.network.host=0.0.0.0
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  volumes:
-    - /var/elasticsearch:/usr/share/elasticsearch/data
+  image: elasticsearch:5
+  container_name: elasticsearch
   environment:
-    ES_HEAP_SIZE: 6g
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  volumes:
+    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - /var/elasticsearch:/usr/share/elasticsearch/data
 logstash:
-  image: logstash:latest
-  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  image: logstash:2.4
+  command: logstash --debug -f /etc/logstash/conf.d/logstash.conf
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
+    - ./testlog/log:/host/var/log
+    - ./PDU2-MIB.yaml:/opt/logstash/vendor/bundle/jruby/1.9/gems/snmp-1.2.0/data/ruby/snmp/mibs/PDU2-MIB.yaml
   ports:
-    - "5000:5000"
+    - "5000:5000/udp"
+    - "5007:5007/udp"
   links:
     - elasticsearch
 kibana:
-  build: kibana/
-  volumes:
-    - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+  image: kibana:5
   ports:
     - "5601:5601"
   links:

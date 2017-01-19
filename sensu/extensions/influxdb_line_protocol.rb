@@ -23,7 +23,7 @@ module Sensu
 					key.gsub!('.', '_')
 					value = m[1].to_f
 					time = m[2].ljust(19, '0')
-					data << "#{key},host=#{host},ip=#{ip},metric=#{metric} value=#{value} #{time}"
+					data << "#{metric},host=#{host},ip=#{ip},metric=#{key} value=#{value} #{time}"
 				end
 				yield data.join("\n"), 0
 			end

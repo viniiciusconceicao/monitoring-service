@@ -1,37 +1,18 @@
 {
   "handlers": {
+    "default": {
+     "type": "set",
+        "handlers": ["file", "influxdb"]
+    },
     "file": {
       "type": "pipe",
-      "command": "/etc/sensu/extensions/event-file.rb",
-      "timeout": 10
-    },
-    "tcp_socket": {
-      "type": "tcp",
-      "socket": {
-        "host": "influxdb",
-        "port": 6000
-      }
-    },
-    "transport": {
-      "type": "transport",
-      "pipe": {
-        "type": "direct",
-        "name": "events"
-      }
-    },
-    "default": {
-      "type": "set",
-      "handlers": [
-        "file",
-        "tcp_socket",
-        "transport"
-      ]
+      "command": "/etc/sensu/plugins/event-file.rb"
     },
     "influxdb": {
       "type": "udp",
       "mutator": "influxdb_line_protocol",
       "socket": {
-        "host": "influxdb",
+        "host": "10.0.0.1",
         "port": 8089
       }
     }
