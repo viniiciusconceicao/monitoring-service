@@ -1,0 +1,10 @@
+logstash:
+  image: logstash:2.4
+  restart: unless-stopped
+  command: bash -c "sh start.sh"
+  volumes:
+    - ./config:/etc/logstash/conf.d
+    - /home/ubuntu/spark/logs/event:/host/var/log
+    - ./start.sh:/start.sh
+  ports:
+    - "5000:5000"
