@@ -1,25 +1,31 @@
 elasticsearch:
   image: elasticsearch:5
   container_name: elasticsearch
+  restart: unless-stopped
   environment:
     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
   volumes:
     - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-    - /var/elasticsearch:/usr/share/elasticsearch/data
+    - /srv/elasticsearch:/usr/share/elasticsearch/data
 logstash:
-  image: logstash:2.4
-  command: logstash --debug -f /etc/logstash/conf.d/logstash.conf
+  image: jmx/logstash:v1
+  restart: unless-stopped 
+  command: logstash --debug -f /etc/logstash/conf.d/logstash.conf 
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
+    - ./logstash/jmx:/etc/logstash/jmx
     - ./testlog/log:/host/var/log
-    - ./PDU2-MIB.yaml:/opt/logstash/vendor/bundle/jruby/1.9/gems/snmp-1.2.0/data/ruby/snmp/mibs/PDU2-MIB.yaml
   ports:
-    - "5000:5000/udp"
+    - "5000:5000"
     - "5007:5007/udp"
+    - "4712:4712"
+    - "4713:4713"
+    - "4715:4715"
   links:
     - elasticsearch
 kibana:
   image: kibana:5
+  restart: unless-stopped  
   ports:
     - "5601:5601"
   links:
