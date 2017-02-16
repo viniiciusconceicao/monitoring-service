@@ -1,5 +1,6 @@
 api:
   image: sstarcher/sensu
+  restart: unless-stopped
   command: api
   links:
     - rabbitmq
@@ -10,6 +11,7 @@ api:
     RABBITMQ_PORT: 5672
 server:
   image: sstarcher/sensu
+  restart: unless-stopped
   command: server
   links:
     - rabbitmq
@@ -26,6 +28,7 @@ server:
     RABBITMQ_PORT: 5672
 client:
   image: guimaluf/sensu
+  restart: unless-stopped
   command: client
   hostname: CoreOs
   volumes:
@@ -44,20 +47,24 @@ client:
     HOST_SYS_DIR: /host_sys
 uchiwa:
   image: sstarcher/uchiwa
+  restart: unless-stopped
   links:
     - api:sensu
   ports:
     - '80:3000'
 rabbitmq:
   image: rabbitmq:3.5-management
+  restart: unless-stopped
   ports:
     - '5672:5672'
 redis:
   image: redis
+  restart: unless-stopped
   volumes:
     - /srv/redis:/data
 influxdb:
   image: tutum/influxdb:latest
+  restart: unless-stopped
   volumes:
     - /srv/influxdb:/data
   ports:
@@ -74,12 +81,16 @@ influxdb:
     GRAPHITE_DB: jvm
 grafana:
   image: grafana/grafana:2.6.0
+  restart: unless-stopped
+  volumes:
+   -  /srv/grafana:/var/lib/grafana
   ports:
     - "3000:3000"
   links:
     - influxdb
 collectd:
   build: ../collectd
+  restart: unless-stopped
   volumes:
     - ../collectd/conf.d:/etc/collectd/collectd.conf.d
     - /srv/collectd:/var/lib/collectd
