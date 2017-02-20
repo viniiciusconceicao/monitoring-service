@@ -1,4 +1,4 @@
-network.host: 172.17.0.2
+network.host: _eth0_
 
 # this value is required because we set "network.host"
 # be sure to modify it appropriately for a production cluster deployment
