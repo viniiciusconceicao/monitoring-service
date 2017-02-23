@@ -1,0 +1,11 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /host/var/log/*
+  json.keys_under_root: true
+  processors:
+    - decode_json_fields:
+         fields: ["message"]
+  document_type: HistoryServer
+output.logstash:
+  hosts: ["200.131.6.6:5044"]
