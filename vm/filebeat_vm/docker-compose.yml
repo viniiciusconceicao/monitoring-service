@@ -1,0 +1,12 @@
+filebeat:
+  image: prima/filebeat:5
+#  restart: unless-stopped
+  command: bash -c "sh start.sh"
+  volumes:
+    - ./conf/filebeat.yml:/filebeat.yml
+    - /home/ubuntu/spark/logs/event:/host/var/log
+    - ./start.sh:/start.sh
+  environment:
+   - LOGSTASH_HOST=10.0.0.1
+   - LOGSTASH_PORT=5044
+   - SHIPPER_NAME=SparkHistory
