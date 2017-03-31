@@ -53,10 +53,11 @@ uchiwa:
   ports:
     - '80:3000'
 rabbitmq:
-  image: rabbitmq:3.5-management
+  image: rabbitmq:3.6-management
   restart: unless-stopped
   ports:
     - '5672:5672'
+    - '15672:15672'
 redis:
   image: redis
   restart: unless-stopped
@@ -70,7 +71,6 @@ influxdb:
   ports:
     - "8083:8083"
     - "8086:8086"
-    - "8090:8090"
     - "8089:8089/udp"
     - "2003:2003"
   environment:
