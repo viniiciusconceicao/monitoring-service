@@ -10,13 +10,15 @@ elasticsearch:
 logstash:
   image: jmx/logstash:v1
   restart: unless-stopped 
-  command: logstash --debug -f /etc/logstash/conf.d/logstash.conf 
+  command: logstash -f /etc/logstash/conf.d/logstash.conf 
+# command: logstash  --debug  -f /etc/logstash/conf.d/logstash.conf 
   volumes:
     - ./logstash/config:/etc/logstash/conf.d
     - ./logstash/jmx:/etc/logstash/jmx
     - ./testlog/log:/host/var/log
   ports:
     - "5000:5000"
+    - "5044:5044"
     - "5007:5007/udp"
     - "4712:4712"
     - "4713:4713"
