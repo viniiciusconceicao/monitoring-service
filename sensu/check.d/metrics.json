@@ -5,7 +5,7 @@
       "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory-percent.rb",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["influxdb"]
+      "handlers": ["influxdb", "transpq"]
     },
     "memory_metrics": {
       "type": "metric",
