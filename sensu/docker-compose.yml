@@ -39,7 +39,7 @@ client:
   environment:
     CLIENT_NAME: CoreOs
     CLIENT_ADDRESS: 200.131.6.6
-    CLIENT_SUBSCRIPTIONS: all,default
+    CLIENT_SUBSCRIPTIONS: default
     RABBITMQ_HOST: 200.131.6.6
     RABBITMQ_PORT: 5672
     HOST_DEV_DIR: /host_dev

@@ -15,6 +15,14 @@
         "host": "200.131.6.6",
         "port": 8089
       }
+    },
+    "transpq": {
+      "type": "transport",
+      "pipe": {
+        "type": "fanout",
+        "name": "metrics"
+      }
     }
+
   }
 }
