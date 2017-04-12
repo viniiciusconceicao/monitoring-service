@@ -7,24 +7,32 @@ elasticsearch:
   volumes:
     - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     - /srv/elasticsearch:/usr/share/elasticsearch/data
-logstash:
+logstash_shipper:
   image: jmx/logstash:v1
   restart: unless-stopped 
   command: logstash -f /etc/logstash/conf.d/logstash.conf 
 # command: logstash  --debug  -f /etc/logstash/conf.d/logstash.conf 
   volumes:
-    - ./logstash/config:/etc/logstash/conf.d
-    - ./logstash/jmx:/etc/logstash/jmx
-    - ./testlog/log:/host/var/log
+    - ./logstash_shipper/config:/etc/logstash/conf.d
+    - ./logstash_shipper/jmx:/etc/logstash/jmx
   ports:
-    - "5000:5000"
     - "5044:5044"
-    - "5007:5007/udp"
     - "4712:4712"
     - "4713:4713"
     - "4715:4715"
+  external_links:
+    - sensu_rabbitmq_1
+logstash_indexer:
+  image: jmx/logstash:v1
+  restart: unless-stopped
+  command: logstash -f /etc/logstash/conf.d/logstash.conf
+  volumes:
+    - ./logstash_indexer/config:/etc/logstash/conf.d
   links:
     - elasticsearch
+  external_links:
+    - sensu_rabbitmq_1
+    - sensu_influxdb_1
 kibana:
   image: kibana:5
   restart: unless-stopped  
