@@ -1,0 +1,12 @@
+FROM debian:jessie-slim
+ 
+ENV RIEMANN_VERSION 0.2.13
+ 
+RUN apt-get update && apt-get install -y default-jre \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ADD https://github.com/riemann/riemann/releases/download/${RIEMANN_VERSION}/riemann_${RIEMANN_VERSION}_all.deb /riemann_${RIEMANN_VERSION}_all.deb
+RUN dpkg -i riemann_${RIEMANN_VERSION}_all.deb
+COPY ./riemann.config /etc/riemann/riemann.config
+CMD ["riemann", "/etc/riemann/riemann.config"]
