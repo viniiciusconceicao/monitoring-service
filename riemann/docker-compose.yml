@@ -1,0 +1,7 @@
+riemann:
+   image: vini/riemann-server:v1 
+#  restart: unless-stopped
+   volumes:
+     - ./riemann.config:/home/riemann/riemann.config
+   external_links:
+     - sensu_rabbitmq_1
