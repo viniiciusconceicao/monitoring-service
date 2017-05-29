@@ -1,0 +1,12 @@
+beaver:
+  build: .
+  container_name: beaver
+  restart: unless-stopped
+  command: bash -c "sh start.sh"
+  volumes:
+    - ./conf/beaver.conf:/app/beaver.conf
+    - /home/ubuntu/spark/logs/:/app/log
+    - /home/ubuntu/hadoop/logs:/app/log2
+    - ./start.sh:/start.sh
+#  environment:
+#  -  BEAVER_OPTS: "-t rabbitmq"
