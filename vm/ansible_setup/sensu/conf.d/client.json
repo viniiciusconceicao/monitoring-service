@@ -1,0 +1,21 @@
+{
+  "client": {
+    "socket": {
+      "bind": "127.0.0.0"
+    },
+    "name": "master",
+    "address": "10.82.76.14",
+    
+    "subscriptions": [
+      
+        "all"
+      
+        ,"default"
+      
+    ],
+    
+    "keepalive": {
+      "handler": "default"
+    }
+  }
+}
