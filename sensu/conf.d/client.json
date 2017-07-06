@@ -1,7 +1,21 @@
 {
   "client": {
-    "name": "server",
-    "address": "127.0.0.1",
-    "subscriptions": [ "ALL" ]
+    "socket": {
+      "bind": "127.0.0.0"
+    },
+    "name": "CoreOs",
+    "address": "200.131.6.6",
+    
+    "subscriptions": [
+      
+        "default"
+      
+        ," snmp"
+      
+    ],
+    
+    "keepalive": {
+      "handler": "default"
+    }
   }
 }

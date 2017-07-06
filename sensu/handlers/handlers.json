@@ -20,7 +20,8 @@
       "type": "transport",
       "pipe": {
         "type": "fanout",
-        "name": "metrics"
+        "name": "metrics",
+        "options": {"durable": true}
       }
     }
 
