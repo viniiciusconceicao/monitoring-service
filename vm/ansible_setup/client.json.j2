@@ -1,0 +1,19 @@
+{
+  "client": {
+    "socket": {
+      "bind": "127.0.0.0"
+    },
+    "name": "{{ ansible_hostname }}",
+    "address": "{{ ansible_eth0.ipv4.address }}",
+    
+    "subscriptions": [
+      
+        "all"
+      
+    ],
+    
+    "keepalive": {
+      "handler": "default"
+    }
+  }
+}
