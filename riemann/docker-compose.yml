@@ -1,5 +1,5 @@
 riemann:
-   image: vini/riemann-server:v1 
+   build: . 
 #  restart: unless-stopped
    volumes:
      - ./riemann.config:/home/riemann/riemann.config

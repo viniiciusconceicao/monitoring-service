@@ -1,0 +1,9 @@
+telegraf:
+   image: telegraf:1.3-alpine 
+#  restart: unless-stopped
+   volumes:
+     - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+   external_links:
+     - sensu_rabbitmq_1
+     - sensu_influxdb_1
+     - elasticsearch

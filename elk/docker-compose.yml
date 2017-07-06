@@ -7,8 +7,10 @@ elasticsearch:
   volumes:
     - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     - /srv/elasticsearch:/usr/share/elasticsearch/data
+#  ports:
+#    - "9200:9200"
 logstash_shipper:
-  image: jmx/logstash:v1
+  build: ./logstash_shipper 
   restart: unless-stopped 
   command: logstash -f /etc/logstash/conf.d/logstash.conf 
 # command: logstash  --debug  -f /etc/logstash/conf.d/logstash.conf 
@@ -23,7 +25,7 @@ logstash_shipper:
   external_links:
     - sensu_rabbitmq_1
 logstash_indexer:
-  image: jmx/logstash:v1
+  build: ./logstash_indexer
   restart: unless-stopped
   command: logstash -f /etc/logstash/conf.d/logstash.conf
   volumes:
