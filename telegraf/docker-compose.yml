@@ -7,3 +7,4 @@ telegraf:
      - sensu_rabbitmq_1
      - sensu_influxdb_1
      - elasticsearch
+     - influxmonitor_influxdb_1

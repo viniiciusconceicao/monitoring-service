@@ -1,0 +1,11 @@
+influxdb:
+  image: tutum/influxdb:0.9
+  restart: unless-stopped
+  volumes:
+    - /srv/influxdbMetrics:/data
+  ports:
+    - "8092:8086"
+  environment:
+    PRE_CREATE_DB: sensu
+
+
