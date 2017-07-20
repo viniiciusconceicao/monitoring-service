@@ -1,0 +1,200 @@
+{
+    "servers": [
+        {
+            "alias": "DataNode-slave1",
+                        "host": "10.82.76.4",
+                        "port": "8008",
+            "queries": [
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "Hadoop:name=RpcActivityForPort50020,service=DataNode",
+                    "resultAlias": "DataNodeRpcAcitivity",
+                    "attr": [
+                        "NumOpenConnections",
+                        "CallQueueLength",
+                        "RpcQueueTimeNumOps",
+                        "RpcQueueTimeAvgTime",
+                        "RpcProcessingTimeNumOps",
+                        "RpcProcessingTimeAvgTime"
+                    ]
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "Hadoop:name=DataNodeActivity-slave1-50010,service=DataNode",
+                    "resultAlias": "DataNodeActivity",
+                    "attr": [
+                        "BytesWritten",
+                        "ReadsFromRemoteClient",
+                        "ReplaceBlockOpNumOps",
+                        "ReplaceBlockOpAvgTime",
+                        "BlockVerificationFailures",
+                        "BlocksRead",
+                        "HeartbeatsNumOps",
+                        "HeartbeatsAvgTime",
+                        "CopyBlockOpNumOps",
+                        "CopyBlockOpAvgTime",
+                        "BlocksWritten",
+                        "ReadBlockOpNumOps",
+                        "ReadBlockOpAvgTime",
+                        "BlockChecksumOpNumOps",
+                        "BlockChecksumOpAvgTime",
+                        "ReadsFromLocalClient",
+                        "WritesFromRemoteClient",
+                        "BlocksVerified",
+                        "BlockReportsNumOps",
+                        "BlockReportsAvgTime",
+                        "WritesFromLocalClient",
+                        "BlocksReplicated",
+                        "BytesRead",
+                        "BlocksRemoved",
+                        "WriteBlockOpNumOps",
+                        "WriteBlockOpAvgTime"
+                    ]
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "Hadoop:service=DataNode,name=FSDatasetState*",
+                    "resultAlias": "DataNodeFSDatasetState",
+                    "attr": [
+                        "Remaining",
+                        "Capacity",
+                        "DfsUsed"
+                    ]
+                },
+                                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "java.lang:type=OperatingSystem",
+                    "resultAlias": "Sys",
+                    "attr": [
+                      "OpenFileDescriptorCount",
+                      "ProcessCpuLoad",
+                                          "SystemLoadAverage",
+                                          "AvailableProcessors",
+                                          "TotalPhysicalMemorySize",
+                                          "FreePhysicalMemorySize",
+                                          "TotalSwapSpaceSize",
+                                          "FreeSwapSpaceSize",
+                                          "MaxFileDescriptorCount"
+                    ]
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "java.lang:type=ClassLoading",
+                    "resultAlias": "Classloading",
+                    "attr": [ "LoadedClassCount"]
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj" : "java.lang:type=Memory",
+                    "attr" : [ "HeapMemoryUsage", "NonHeapMemoryUsage" ],
+                    "resultAlias": "Memory"
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj" : "java.lang:type=Threading",
+                    "attr" : [
+                                                "ThreadCount",
+                                                "DaemonThreadCount",
+                                                "PeakThreadCount",
+                                                "TotalStartedThreadCount"
+                                        ],
+                    "resultAlias": "Threading"
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "java.lang:type=GarbageCollector,name=*",
+                                        "allowDottedKeys": null,
+                                        "useObjDomainAsKey": null,
+                    "attr" : [
+                                          "CollectionCount",
+                                          "CollectionTime"
+                                        ],
+                    "resultAlias": "Gc"
+                },
+                {
+                    "outputWriters": [
+                        {
+                            "@class": "com.googlecode.jmxtrans.model.output.GraphiteWriter",
+                            "settings": {
+                                "port": "2003",
+                                "host": "200.131.6.6"
+                            }
+                        }
+                    ],
+                    "obj": "java.lang:type=MemoryPool,name=*",
+                                        "allowDottedKeys": null,
+                                        "useObjDomainAsKey": null,
+                    "attr" : [
+                                          "Usage"
+                                        ],
+                    "resultAlias": "MemoryPool"
+                }
+            ],
+            "numQueryThreads": 2
+        }
+    ]
+}

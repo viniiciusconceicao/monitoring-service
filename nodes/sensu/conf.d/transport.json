@@ -1,0 +1,16 @@
+
+
+{
+    "transport": {
+      "name": "rabbitmq",
+      "reconnect_on_error": true
+    } ,
+    "rabbitmq": {
+        "port": 5672,
+        "host": "rabbitmq",
+        "user": "guest",
+        "password": "guest",
+        "vhost": "/",
+        "prefetch": 1
+    } 
+}

@@ -1,5 +1,5 @@
 ---
-- hosts: slaves
+- hosts: monitor-2 
   sudo: yes
   vars:
     monitor_host: coreos
@@ -16,12 +16,12 @@
 #    copy: src=spark-defaults.conf dest=/home/ubuntu/spark/conf/spark-defaults.conf
 #  - name: Copy Spark metrics.properties
 #    template: src=metrics.properties.j2 dest=/home/ubuntu/spark/conf/metrics.properties
-#  - name: Copy Docker Compose Install Script
-#    copy: src=install_docker.sh dest=/home/ubuntu/install_docker.sh
-#  - name: Execution permission
-#    file: dest=/home/ubuntu/install_docker.sh mode=a+x
-#  - name: Execute Docker Compose Script
-#    shell: /home/ubuntu/install_docker.sh  >> out.txt
+  - name: Copy Docker Compose Install Script
+    copy: src=install_docker.sh dest=/home/ubuntu/install_docker.sh
+  - name: Execution permission
+    file: dest=/home/ubuntu/install_docker.sh mode=a+x
+  - name: Execute Docker Compose Script
+    shell: /home/ubuntu/install_docker.sh  >> out.txt
 #  - name: Copy Beaver Container Recipe
 #    copy: src=beaver/ dest=/home/ubuntu/beaver directory_mode=0755
 #  - name: Copy Beaver conf
@@ -30,11 +30,11 @@
 #    shell: chdir=/home/ubuntu/beaver docker-compose up -d
 #  - name: Craete History Server Folder
 #    file: path=/home/ubuntu/spark/logs/event state=directory mode=0755
-  - name: Copy Sensu Container Recipe
-    copy: src=sensu/ dest=/home/ubuntu/sensu directory_mode=0755
-  - name: Copy Sensu docker compose conf
-    template: src=docker-compose.yml.j2 dest=/home/ubuntu/sensu/docker-compose.yml
-  - name: Copy Sensu client conf
-    template: src=client.json.j2 dest=/home/ubuntu/sensu/conf.d/client.json
-  - name: Go to sensu folder and up the container
-    shell: chdir=/home/ubuntu/sensu docker-compose up -d
+#  - name: Copy Sensu Container Recipe
+#    copy: src=sensu/ dest=/home/ubuntu/sensu directory_mode=0755
+#  - name: Copy Sensu docker compose conf
+#    template: src=docker-compose.yml.j2 dest=/home/ubuntu/sensu/docker-compose.yml
+#  - name: Copy Sensu client conf
+#    template: src=client.json.j2 dest=/home/ubuntu/sensu/conf.d/client.json
+#  - name: Go to sensu folder and up the container
+#    shell: chdir=/home/ubuntu/sensu docker-compose up -d

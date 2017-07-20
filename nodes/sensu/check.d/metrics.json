@@ -1,0 +1,60 @@
+{
+  "checks": {
+    "memory_metrics_p": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory-percent.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "memory_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "cpu_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-cpu-pcnt-usage.rb",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "load_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-load.rb -p",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "disk_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-disk.rb -I sda",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "temperature_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-temperature.rb",
+      "subscribers": [ "temp" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "ipmi_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/check-sensor.rb -h 172.16.0.111 -u root -p root",
+      "subscribers": [ "temp" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "net_metrics": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-net.rb -i 'veth*|sit*|tun*|docker*'",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    }
+  }
+}
