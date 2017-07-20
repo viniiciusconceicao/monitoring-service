@@ -1,0 +1,7 @@
+network.host: _eth0_
+
+# this value is required because we set "network.host"
+# be sure to modify it appropriately for a production cluster deployment
+discovery.zen.minimum_master_nodes: 2  
+discovery.zen.ping.unicast.hosts: ["10.82.76.13", "10.82.76.15", "10.82.76.16"]
+
