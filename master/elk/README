@@ -1,3 +1,7 @@
 TO INCREASE VIRTUAL MEMORY FOR ELASTIC SEARCH
 sysctl -w vm.max_map_count=262144
 SETAR O network.host na config do elastic search com o ip do container
+
+Dont forget 
+docker service update --endpoint-mode=dnsrr test_elasticsearch  
+http://derpturkey.com/elasticsearch-cluster-with-docker-engine-swarm-mode/
