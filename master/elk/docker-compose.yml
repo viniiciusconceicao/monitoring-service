@@ -2,6 +2,7 @@ elasticsearch:
   image: elasticsearch:5
   container_name: elasticsearch
   restart: unless-stopped
+#  net: host
   environment:
     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
   volumes:
@@ -9,6 +10,7 @@ elasticsearch:
     - /srv/elasticsearch:/usr/share/elasticsearch/data
   ports:
     - "9300:9300"
+  network: elasticsearch-backend
 #    - "9200:9200"
 #logstash_shipper:
 #  build: ./logstash_shipper 
