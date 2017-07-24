@@ -1,11 +1,11 @@
 ---
-- hosts: monitor-2 
+- hosts: monitor-3 
   sudo: yes
   vars:
     monitor_host: coreos
   tasks:
-#  - name: Copy hosts
-#    copy: src=/etc/hosts dest=/etc/hosts
+  - name: Copy hosts
+    copy: src=/etc/hosts dest=/etc/hosts
 #  - name: Copy Hadoop log4j
 #    template: src=log4j_hadoop.properties.j2 dest=/home/ubuntu/hadoop/etc/hadoop/log4j.properties
 #  - name: Copy Hadoop hadoop-env.sh
@@ -16,12 +16,12 @@
 #    copy: src=spark-defaults.conf dest=/home/ubuntu/spark/conf/spark-defaults.conf
 #  - name: Copy Spark metrics.properties
 #    template: src=metrics.properties.j2 dest=/home/ubuntu/spark/conf/metrics.properties
-  - name: Copy Docker Compose Install Script
-    copy: src=install_docker.sh dest=/home/ubuntu/install_docker.sh
-  - name: Execution permission
-    file: dest=/home/ubuntu/install_docker.sh mode=a+x
-  - name: Execute Docker Compose Script
-    shell: /home/ubuntu/install_docker.sh  >> out.txt
+#  - name: Copy Docker Compose Install Script
+#    copy: src=install_docker.sh dest=/home/ubuntu/install_docker.sh
+#  - name: Execution permission
+#    file: dest=/home/ubuntu/install_docker.sh mode=a+x
+#  - name: Execute Docker Compose Script
+#    shell: /home/ubuntu/install_docker.sh  >> out.txt
 #  - name: Copy Beaver Container Recipe
 #    copy: src=beaver/ dest=/home/ubuntu/beaver directory_mode=0755
 #  - name: Copy Beaver conf

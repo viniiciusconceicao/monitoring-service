@@ -1,16 +1,16 @@
-elasticsearch:
-  image: elasticsearch:5
-  container_name: elasticsearch
-  restart: unless-stopped
+#elasticsearch:
+#  image: elasticsearch:5
+#  container_name: elasticsearch
+#  restart: unless-stopped
 #  net: host
-  environment:
-    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-  volumes:
-    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-    - /srv/elasticsearch:/usr/share/elasticsearch/data
-  ports:
-    - "9300:9300"
-  network: elasticsearch-backend
+#  environment:
+#    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#  volumes:
+#    - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+#    - /srv/elasticsearch:/usr/share/elasticsearch/data
+#  ports:
+#    - "9300:9300"
+#  network: elasticsearch-backend
 #    - "9200:9200"
 #logstash_shipper:
 #  build: ./logstash_shipper 
@@ -38,10 +38,11 @@ elasticsearch:
 #  external_links:
 #    - sensu_rabbitmq_1
 #    - sensu_influxdb_1
-#kibana:
-#  image: kibana:5
-#  restart: unless-stopped  
-#  ports:
-#    - "5601:5601"
+kibana:
+  image: kibana:5
+  restart: unless-stopped  
+  ports:
+    - "5601:5601"
+#  network: elasticsearch_default 
 #  links:
 #    - elasticsearch
