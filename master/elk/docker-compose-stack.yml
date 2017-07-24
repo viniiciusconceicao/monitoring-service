@@ -111,6 +111,28 @@ services:
 #      placement:
 #        constraints:
 #          - node.role == manager
+  logstash_shipper:
+    image: 'logstash:shipper'
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+      - ./logstash_shipper/config:/etc/logstash/conf.d
+      - ./logstash_shipper/jmx:/etc/logstash/jmx
+    ports:
+      - "5044:5044"
+      - "4712:4712"
+      - "4713:4713"
+      - "4715:4715"
+    links:
+      - rabbitmq
+    networks:
+      - rmqnet
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+#      placement:
+#        constraints:
+#          - node.role == manager
 
 networks:
   rmqnet:
