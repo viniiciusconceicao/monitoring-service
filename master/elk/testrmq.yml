@@ -1,0 +1,45 @@
+version: '3'  
+services: 
+  consul:
+    image: consul:latest
+    ports:
+      - '8500:8500'
+    environment:
+      - 'CONSUL_BIND_INTERFACE=eth0'
+      - 'CONSUL_LOCAL_CONFIG={"skip_leave_on_interrupt": true}'
+    networks:
+      - rmqnet
+    command: [ "agent", "-server","-ui","-client", "0.0.0.0", "-bootstrap-expect","1","-retry-join","consul" ]
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager 
+
+  rabbitmq:
+    image: 'rabbitmq:autocluster'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - 'AUTOCLUSTER_TYPE=consul'
+      - 'CONSUL_HOST=consul'
+      - 'CONSUL_PORT=8500'
+      - 'CONSUL_SVC=rabbitmq'
+      - 'CONSUL_SVC_ADDR_AUTO=true'
+      - 'AUTOCLUSTER_CLEANUP=true'
+      - 'CLEANUP_WARN_ONLY=false'
+      - 'RABBITMQ_ERLANG_COOKIE=secrect'
+    networks:
+      - rmqnet     
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+#      placement:
+#        constraints:
+#          - node.role == manager
+networks:
+  rmqnet:
