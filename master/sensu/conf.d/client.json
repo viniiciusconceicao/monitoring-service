@@ -3,8 +3,8 @@
     "socket": {
       "bind": "127.0.0.0"
     },
-    "name": "CoreOs",
-    "address": "200.131.6.6",
+    "name": "monitor1",
+    "address": "200.131.6.47",
     
     "subscriptions": [
       

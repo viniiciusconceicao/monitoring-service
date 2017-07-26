@@ -14,8 +14,10 @@ services:
       - 'UDP_PORT=8089'
       - 'COLLECTD_DB=collectd'
       - 'GRAPHITE_DB=jvm'
+#    volumes:
+#      - /srv/influxdb:/data
     volumes:
-      - /srv/influxdb:/data
+      - /home/ubuntu/influx:/data
     networks:
       influxnet:
         aliases:
@@ -37,8 +39,10 @@ services:
     environment:
       - 'FORCE_HOSTNAME=auto'
       - 'JOIN=influxdba:8088'
+#    volumes:
+#      - /srv/influx:/data
     volumes:
-      - /srv/influx:/data
+      - /home/ubuntu/influx:/data
     networks:
       - influxnet
     depends_on:

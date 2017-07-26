@@ -45,6 +45,8 @@ services:
       - "5601:5601"
     networks:
       - esnet
+    depends_on:
+      - elasticsearch
     deploy:
       restart_policy:
         condition: any
@@ -98,12 +100,13 @@ services:
     command: logstash -f /etc/logstash/conf.d/logstash.conf
     volumes:
       - ./logstash_indexer/config:/etc/logstash/conf.d
-    links:
+    depends_on:
       - elasticsearch
       - rabbitmq
     networks:
       - rmqnet
       - esnet
+      - influxnet
     deploy:
 #      mode: global
       restart_policy:
@@ -122,7 +125,7 @@ services:
       - "4712:4712"
       - "4713:4713"
       - "4715:4715"
-    links:
+    depends_on:
       - rabbitmq
     networks:
       - rmqnet
@@ -133,7 +136,155 @@ services:
 #      placement:
 #        constraints:
 #          - node.role == manager
-
+  influxdba:
+    image: influxdb:cluster
+#    ports:
+#      - "8083:8083"
+#      - "8086:8086"
+#      - "8089:8089/udp"
+#      - "2003:2003"
+    environment:
+      - 'FORCE_HOSTNAME=influxdba'
+      - 'PRE_CREATE_DB=sensu'
+      - 'UDP_DB=sensu'
+      - 'UDP_PORT=8089'
+      - 'COLLECTD_DB=collectd'
+      - 'GRAPHITE_DB=jvm'
+#    volumes:
+#      - /srv/influxdb:/data
+#    volumes:
+#      - /home/ubuntu/influx:/data
+    networks:
+      influxnet:
+        aliases:
+          - influxdb
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+  influxdb:
+    image: influxdb:cluster
+ #   ports:
+ #     - "8083:8083"
+ #     - "8086:8086"
+ #     - "8089:8089/udp"
+ #     - "2003:2003"
+    environment:
+      - 'FORCE_HOSTNAME=auto'
+      - 'JOIN=influxdba:8088'
+#    volumes:
+#      - /srv/influx:/data
+#    volumes:
+#      - /home/ubuntu/influx:/data
+    networks:
+      - influxnet
+    depends_on:
+      - influxdba
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == worker
+  grafana:
+    image: grafana/grafana:2.6.0
+    volumes:
+      -  /srv/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - influxnet
+      - esnet
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+  redis:
+    image: redis
+    volumes:
+      - /srv/redis:/data
+    networks:
+      - sensunet
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+  server:
+    image: sstarcher/sensu:0.23.2
+    command: server
+    networks:
+      - rmqnet
+      - sensunet
+      - influxnet
+    volumes:
+      - ../sensu/conf.d:/etc/sensu/conf.d
+      - ../sensu/check.d:/etc/sensu/check.d
+      - ../sensu/handlers:/etc/sensu/handlers
+      - ../sensu/extensions:/etc/sensu/extensions
+      - ../sensu/plugins:/etc/sensu/plugins
+    environment:
+      RABBITMQ_PORT: 5672
+      RUNTIME_INSTALL: snmp
+    depends_on:
+      - redis
+      - rabbitmq
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+  collectd:
+    image: collectd:cluster
+    volumes:
+      - ../collectd/conf.d:/etc/collectd/collectd.conf.d
+      - /srv/collectd:/var/lib/collectd
+    networks:
+      - influxnet
+    deploy:
+#      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+  uchiwa:
+    image: sstarcher/uchiwa:0.15.0
+    networks:
+      - sensunet
+    ports:
+      - '80:3000'
+    volumes:
+      - ../sensu/uchiwa/uchiwa.json:/etc/sensu/uchiwa.json
+    depends_on:
+      - server
+      - api
+  api:
+    image: sstarcher/sensu:0.23.2
+    command: api
+    networks:
+      - rmqnet
+      - sensunet
+    volumes:
+      - ../sensu/check.d:/etc/sensu/check.d
+    environment:
+      RABBITMQ_PORT: 5672
+    depends_on:
+      - server
+      - rabbitmq
 networks:
   rmqnet:
   esnet:
+  influxnet:
+  sensunet:
