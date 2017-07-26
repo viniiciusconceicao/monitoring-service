@@ -12,7 +12,7 @@
       "type": "udp",
       "mutator": "influxdb_line_protocol",
       "socket": {
-        "host": "10.0.0.1",
+        "host": "influxdb",
         "port": 8089
       }
     },
