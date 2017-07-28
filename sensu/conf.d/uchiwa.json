@@ -3,7 +3,7 @@
   "sensu": [
     {
       "name": "Monitor",
-      "host": "sensu_api_1",
+      "host": "api",
       "port": 4567
     }
   ],

@@ -54,7 +54,7 @@ uchiwa:
   ports:
     - '80:3000'
   volumes:
-    - ./uchiwa/uchiwa.json:/etc/sensu/uchiwa.json
+    - ./uchiwa/uchiwa.json:/etc/sensu/uchiwa.json:ro
 rabbitmq:
   image: rabbitmq:3.6-management
   restart: unless-stopped
