@@ -1,4 +1,4 @@
 # monitoring-service
-Monitoring service made composed of docker containers with Sensu, InfluxDB, Grafana, Collectd. For logs the ELK Stack and also RabbitMQ as a transport layer. Additionally, an event engine called Riemann for stream process.
-![monitoringsystem](https://cloud.githubusercontent.com/assets/5986103/25095727/94a4baa2-2362-11e7-89bf-d930aed31293.png)
-
+A distributed Monitoring Service build as a Docker Swarm service for Hadoop and Spark monitoring as well as general monitoring. Containers: Sensu, InfluxDB, Grafana, Collectd, ElasticSearch, Logstash, Kibana, Riemann and also RabbitMQ as a transport layer. Additionally, an event engine called Riemann for stream process.
+If you are interested in using this tool email me :)
+![monitoringsystem](![monitoring_estructured_swarm](https://user-images.githubusercontent.com/5986103/28787372-995990dc-75e1-11e7-87a6-23de6d5a071c.png))
