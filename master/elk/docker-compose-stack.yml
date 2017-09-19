@@ -184,7 +184,7 @@ services:
     depends_on:
       - influxdba
     deploy:
-#      mode: global
+#     mode: global
       restart_policy:
         condition: any
       placement:
@@ -266,7 +266,7 @@ services:
     ports:
       - '80:3000'
     volumes:
-      - ../sensu/uchiwa/uchiwa.json:/etc/sensu/uchiwa.json
+      - ../sensu/uchiwa/uchiwa.json:/etc/sensu/uchiwa.json:ro
     depends_on:
       - server
       - api
