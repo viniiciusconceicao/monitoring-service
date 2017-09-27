@@ -1,5 +1,5 @@
 ---
-- hosts: monitor-3 
+- hosts: localhost,slaves 
   sudo: yes
   vars:
     monitor_host: coreos
@@ -28,7 +28,7 @@
 #    template: src=beaver.conf.j2 dest=/home/ubuntu/beaver/conf/beaver.conf
 #  - name: Go to beaver folder and up the container
 #    shell: chdir=/home/ubuntu/beaver docker-compose up -d
-#  - name: Craete History Server Folder
+#  - name: Create History Server Folder
 #    file: path=/home/ubuntu/spark/logs/event state=directory mode=0755
 #  - name: Copy Sensu Container Recipe
 #    copy: src=sensu/ dest=/home/ubuntu/sensu directory_mode=0755
