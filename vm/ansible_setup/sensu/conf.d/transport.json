@@ -7,7 +7,7 @@
     } ,
     "rabbitmq": {
         "port": 5672,
-        "host": "10.0.0.1",
+        "host": "coreos",
         "user": "guest",
         "password": "guest",
         "vhost": "/",
