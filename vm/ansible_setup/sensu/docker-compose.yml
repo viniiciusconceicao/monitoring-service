@@ -13,7 +13,7 @@ client:
     CLIENT_NAME:  master
     CLIENT_ADDRESS: 10.82.76.14
     CLIENT_SUBSCRIPTIONS: all,default
-    RABBITMQ_HOST: 200.131.6.6
+    RABBITMQ_HOST: coreos
     RABBITMQ_PORT: 5672
     HOST_DEV_DIR: /host_dev
     HOST_PROC_DIR: /host_proc
