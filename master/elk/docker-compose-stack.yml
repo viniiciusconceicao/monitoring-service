@@ -2,49 +2,26 @@ version: "3"
 services:
 
   elasticsearch:
-    image: elasticsearch:5
-    environment:
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /srv/elasticsearch:/usr/share/elasticsearch/data
+    image: agoryachev/docker-swarm-elasticsearch:5.4.0
+    ports:
+      - "9200:9200"
     networks:
-      - esnet
+      - elastic_cluster
+    environment:
+      - SERVICE_NAME=elasticsearch
+      - discovery.zen.minimum_master_nodes=2
+    volumes:
+      - /home/ubuntu/data/elasticsearch:/usr/share/elasticsearch/data
     deploy:
       mode: global
       restart_policy:
         condition: any
-# nginx:
-#   image: 'nginx:1'
-#   ports:
-#     - '9200:9200'
-#   command: |
-#     /bin/bash -c "echo '
-#      server {
-#        listen 9200;
-#        add_header X-Frame-Options "SAMEORIGIN";
-#        location / {
-#            proxy_pass http://elasticsearch:9200;
-#            proxy_http_version 1.1;
-#            proxy_set_header Connection keep-alive;
-#            proxy_set_header Upgrade $$http_upgrade;
-#            proxy_set_header Host $$host;
-#            proxy_set_header X-Real-IP $$remote_addr;
-#            proxy_cache_bypass $$http_upgrade;
-#        }
-#      }' | tee /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
-#   deploy:
-#     restart_policy:
-#       condition: any
-#     placement:
-#       constraints:
-#         - node.role == manager
   kibana:
-    image: kibana:5
+    image: docker.elastic.co/kibana/kibana:5.4.3
     ports:
       - "5601:5601"
     networks:
-      - esnet
+      - elastic_cluster
     depends_on:
       - elasticsearch
     deploy:
@@ -53,9 +30,8 @@ services:
       placement:
         constraints:
           - node.role == manager
-
   consul:
-    image: consul:latest
+    image: consul:0.9.0
     ports:
       - '8500:8500'
     environment:
@@ -65,7 +41,6 @@ services:
       - rmqnet
     command: [ "agent", "-server","-ui","-client", "0.0.0.0", "-bootstrap-expect","1","-retry-join","consul" ]
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
@@ -105,7 +80,7 @@ services:
       - rabbitmq
     networks:
       - rmqnet
-      - esnet
+      - elastic_cluster 
       - influxnet
     deploy:
 #      mode: global
@@ -125,12 +100,12 @@ services:
       - "4712:4712"
       - "4713:4713"
       - "4715:4715"
+      - "2003:2003"
     depends_on:
       - rabbitmq
     networks:
       - rmqnet
     deploy:
-#      mode: global
       restart_policy:
         condition: any
 #      placement:
@@ -138,11 +113,6 @@ services:
 #          - node.role == manager
   influxdba:
     image: influxdb:cluster
-#    ports:
-#      - "8083:8083"
-#      - "8086:8086"
-#      - "8089:8089/udp"
-#      - "2003:2003"
     environment:
       - 'FORCE_HOSTNAME=influxdba'
       - 'PRE_CREATE_DB=sensu'
@@ -150,70 +120,64 @@ services:
       - 'UDP_PORT=8089'
       - 'COLLECTD_DB=collectd'
       - 'GRAPHITE_DB=jvm'
-#    volumes:
-#      - /srv/influxdb:/data
-#    volumes:
-#      - /home/ubuntu/influx:/data
+      - 'COLLECTD_BINDING=:2011'
+    volumes:
+      -  /home/ubuntu/data/influx:/data
     networks:
       influxnet:
         aliases:
           - influxdb
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
         constraints:
           - node.role == manager
-  influxdb:
-    image: influxdb:cluster
- #   ports:
- #     - "8083:8083"
- #     - "8086:8086"
- #     - "8089:8089/udp"
- #     - "2003:2003"
-    environment:
-      - 'FORCE_HOSTNAME=auto'
-      - 'JOIN=influxdba:8088'
-#    volumes:
-#      - /srv/influx:/data
-#    volumes:
-#      - /home/ubuntu/influx:/data
-    networks:
-      - influxnet
-    depends_on:
-      - influxdba
-    deploy:
+#  influxdb:
+#    image: influxdb:cluster
+#    environment:
+#      - 'FORCE_HOSTNAME=auto'
+#      - 'JOIN=influxdba:8088'
+  #  volumes:
+  #    -  /home/ubuntu/data/influx:/data
+#    networks:
+#      - influxnet
+#    depends_on:
+#      - influxdba
+#    deploy:
 #     mode: global
-      restart_policy:
-        condition: any
-      placement:
-        constraints:
-          - node.role == worker
+#      restart_policy:
+#        condition: any
+#      placement:
+#        constraints:
+#          - node.role == worker
   grafana:
-    image: grafana/grafana:2.6.0
+    image: grafana/grafana:latest
+    environment:
+      - 'GF_SMTP_ENABLED=true'
+      - 'GF_SMTP_HOST=smtp.dcc.ufmg.br:587'
+      - 'GF_SMTP_USER=vconceicao@dcc.ufmg.br'
+      - 'GF_SMTP_PASSWORD=viriq6842**'
+      - 'GF_SMTP_FROM_ADDRESS=grafana@pdu.speed.dcc.ufmg.br'
+      - 'GF_SERVER_ROOT_URL=http://controller-pdu-02:3000'
     volumes:
-      -  /srv/grafana:/var/lib/grafana
+      -  /home/ubuntu/data/grafana:/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
       - influxnet
-      - esnet
+      - elastic_cluster 
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
         constraints:
           - node.role == manager
   redis:
-    image: redis
-    volumes:
-      - /srv/redis:/data
+    image: redis:latest
     networks:
       - sensunet
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
@@ -234,12 +198,11 @@ services:
       - ../sensu/plugins:/etc/sensu/plugins
     environment:
       RABBITMQ_PORT: 5672
-      RUNTIME_INSTALL: snmp
+      RUNTIME_INSTALL: mailer
     depends_on:
       - redis
       - rabbitmq
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
@@ -249,18 +212,18 @@ services:
     image: collectd:cluster
     volumes:
       - ../collectd/conf.d:/etc/collectd/collectd.conf.d
-      - /srv/collectd:/var/lib/collectd
+    depends_on:
+      - influxdba
     networks:
       - influxnet
     deploy:
-#      mode: global
       restart_policy:
         condition: any
       placement:
         constraints:
           - node.role == manager
   uchiwa:
-    image: sstarcher/uchiwa:0.15.0
+    image: sstarcher/uchiwa:0.25.2
     networks:
       - sensunet
     ports:
@@ -285,6 +248,8 @@ services:
       - rabbitmq
 networks:
   rmqnet:
-  esnet:
   influxnet:
   sensunet:
+  elastic_cluster:
+       external: true
+
