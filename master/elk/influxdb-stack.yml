@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  influxdb:
+    image: influxdb:cluster
+    environment:
+      - 'FORCE_HOSTNAME=auto'
+      - 'JOIN=influxdba:8088'
+    volumes:
+      -  /home/ubuntu/data/influx:/data
+    networks:
+      - monitor_influxnet
+    deploy:
+      restart_policy:
+        condition: any      
+      placement:
+        constraints:
+          - node.role == worker
+networks:
+  monitor_influxnet:
+     external: true
+

@@ -1,0 +1,30 @@
+version: "3"
+services:
+
+  elasticsearch:
+    image: elasticsearch:5
+    command: [ elasticsearch, -E, network.host=0.0.0.0, -E, discovery.zen.ping.unicast.hosts=elasticsearch, -E, discovery.zen.minimum_master_nodes=2, -E, gateway.expected_nodes=3, -E, transport.type=netty3, -E, http.type=netty3  ]
+    networks:
+     - esnet
+    volumes:
+      - /home/ubuntu/data/elasticsearch:/usr/share/elasticsearch/data
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+  kibana:
+    image: kibana:5
+    ports:
+      - "5601:5601"
+    networks:
+      - esnet
+    depends_on:
+      - elasticsearch
+    deploy:
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  esnet:
