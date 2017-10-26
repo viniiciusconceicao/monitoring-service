@@ -8,7 +8,7 @@
      "smtp_port": "587",
      "smtp_domain": "myself@example.com",
      "smtp_enable_starttls_auto": "true",
-     "smtp_username" : "myself@example.com",
-     "smtp_password" : "password"
+     "smtp_username" : "DCC_USER",
+     "smtp_password" : "DCC_PASS"
  }
 }
