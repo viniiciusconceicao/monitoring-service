@@ -1,0 +1,14 @@
+{
+  "mailer2" :  {
+     "admin_gui" : "http://controller-pdu-02.speed.example.com/#/events",
+     "mail_from": "noreply@pdu.speed.example.com",
+     "mail_to": "myself@gmail.com",
+     "delivery_method": "smtp",
+     "smtp_address": "smtp.example.com",
+     "smtp_port": "587",
+     "smtp_domain": "myself@example.com",
+     "smtp_enable_starttls_auto": "true",
+     "smtp_username" : "myself@example.com",
+     "smtp_password" : "password"
+ }
+}

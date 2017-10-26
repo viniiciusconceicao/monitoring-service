@@ -1,0 +1,19 @@
+version: "3"
+services:
+
+  riemann:
+    image: riemann:cluster
+    volumes:
+      - ./riemann.config:/home/riemann/riemann.config
+    networks:
+      - monitor_rmqnet
+    deploy:
+      restart_policy:
+        condition: any      
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  monitor_rmqnet:
+     external: true
+

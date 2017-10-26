@@ -10,6 +10,6 @@
  chmod a+x /usr/local/bin/docker-compose"
  sudo chmod a+x /usr/local/bin/docker-compose
  sudo groupadd docker
- sudo gpasswd -a ubuntu docker
+ sudo gpasswd -a root docker
  sudo service docker restart
 
