@@ -83,12 +83,8 @@ services:
       - elastic_cluster 
       - influxnet
     deploy:
-#      mode: global
       restart_policy:
         condition: any
-#      placement:
-#        constraints:
-#          - node.role == manager
   logstash_shipper:
     image: 'logstash:shipper'
     command: logstash -f /etc/logstash/conf.d/logstash.conf
@@ -108,9 +104,6 @@ services:
     deploy:
       restart_policy:
         condition: any
-#      placement:
-#        constraints:
-#          - node.role == manager
   influxdba:
     image: influxdb:cluster
     environment:
@@ -156,8 +149,8 @@ services:
     environment:
       - 'GF_SMTP_ENABLED=true'
       - 'GF_SMTP_HOST=smtp.dcc.ufmg.br:587'
-      - 'GF_SMTP_USER=vconceicao@dcc.ufmg.br'
-      - 'GF_SMTP_PASSWORD=viriq6842**'
+      - 'GF_SMTP_USER=DCC_USER'
+      - 'GF_SMTP_PASSWORD=DCC_PASS'
       - 'GF_SMTP_FROM_ADDRESS=grafana@pdu.speed.dcc.ufmg.br'
       - 'GF_SERVER_ROOT_URL=http://controller-pdu-02:3000'
     volumes:

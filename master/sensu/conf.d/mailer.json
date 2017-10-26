@@ -8,7 +8,7 @@
      "smtp_port": "587",
      "smtp_domain": "vconceicao@dcc.ufmg.br",
      "smtp_enable_starttls_auto": "true",
-     "smtp_username" : "vconceicao@dcc.ufmg.br",
-     "smtp_password" : "viriq6842**"
+     "smtp_username" : "DCC_USER",
+     "smtp_password" : "DCC_PASS"
  }
 }
