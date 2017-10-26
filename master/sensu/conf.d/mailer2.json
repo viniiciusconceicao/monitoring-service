@@ -1,0 +1,14 @@
+{
+  "mailer2" :  {
+     "admin_gui" : "http://controller-pdu-02.speed.dcc.ufmg.br/#/events",
+     "mail_from": "noreply@pdu.speed.dcc.ufmg.br",
+     "mail_to": "guimalufb@gmail.com",
+     "delivery_method": "smtp",
+     "smtp_address": "smtp.dcc.ufmg.br",
+     "smtp_port": "587",
+     "smtp_domain": "vconceicao@dcc.ufmg.br",
+     "smtp_enable_starttls_auto": "true",
+     "smtp_username" : "vconceicao@dcc.ufmg.br",
+     "smtp_password" : "viriq6842**"
+ }
+}

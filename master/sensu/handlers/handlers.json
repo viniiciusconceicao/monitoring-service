@@ -2,7 +2,7 @@
   "handlers": {
     "default": {
      "type": "set",
-        "handlers": ["file", "influxdb"]
+        "handlers": ["file", "influxdb", "mailer"]
     },
     "file": {
       "type": "pipe",
@@ -23,6 +23,22 @@
         "name": "metrics",
         "options": {"durable": true}
       }
+    },
+    "mailer": {
+      "type": "pipe",
+        "command": "/opt/sensu/embedded/bin/handler-mailer.rb",
+        "filters": 
+          ["filter_warn_hourly"],
+        "severities":
+          ["warning","critical","unknown"]
+    },
+    "mailer2": {
+      "type": "pipe",
+        "command": "/opt/sensu/embedded/bin/handler-mailer.rb -j mailer2",
+        "filters":
+          ["filter_warn_hourly"],
+        "severities":
+          ["warning","critical","unknown"]
     }
 
   }

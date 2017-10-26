@@ -5,7 +5,7 @@
       "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-memory-percent.rb",
       "subscribers": [ "default" ],
       "interval": 5,
-      "handlers": ["influxdb", "transpq"]
+      "handlers": ["influxdb", "transpq", "mailer"]
     },
     "memory_metrics": {
       "type": "metric",
@@ -30,7 +30,14 @@
     },
     "disk_metrics": {
       "type": "metric",
-      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-disk.rb -I sda",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-disk.rb ",
+      "subscribers": [ "default" ],
+      "interval": 5,
+      "handlers": ["influxdb", "transpq"]
+    },
+    "disk_metrics_usage": {
+      "type": "metric",
+      "command": "/opt/sensu/embedded/bin/ruby /opt/sensu/embedded/bin/metrics-disk-usage.rb ",
       "subscribers": [ "default" ],
       "interval": 5,
       "handlers": ["influxdb", "transpq"]
@@ -58,3 +65,4 @@
     }
   }
 }
+

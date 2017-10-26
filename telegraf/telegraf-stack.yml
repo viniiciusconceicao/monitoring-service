@@ -1,0 +1,25 @@
+version: "3"
+services:
+
+  telegraf:
+    image: telegraf:1.3-alpine
+    volumes:
+      - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    networks:
+      - monitor_rmqnet
+      - monitor_influxnet
+      - elastic_cluster
+    deploy:
+      restart_policy:
+        condition: any      
+      placement:
+        constraints:
+          - node.role == manager
+networks:
+  monitor_rmqnet:
+     external: true
+  monitor_influxnet:
+     external: true
+  elastic_cluster:
+     external: true
+
