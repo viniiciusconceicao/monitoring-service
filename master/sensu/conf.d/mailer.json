@@ -1,12 +1,12 @@
 {
   "mailer" :  {
-     "admin_gui" : "http://controller-pdu-02.speed.example.com/#/events",
-     "mail_from": "noreply@pdu.speed.example.com",
-     "mail_to": "sender@example.com",
+     "admin_gui" : "http://controller-pdu-02.speed.dcc.ufmg.br/#/events",
+     "mail_from": "noreply@pdu.speed.dcc.ufmg.br",
+     "mail_to": "viniicius.conceicao@gmail.com",
      "delivery_method": "smtp",
-     "smtp_address": "smtp.example.com",
+     "smtp_address": "smtp.dcc.ufmg.br",
      "smtp_port": "587",
-     "smtp_domain": "myself@example.com",
+     "smtp_domain": "vconceicao@dcc.ufmg.br",
      "smtp_enable_starttls_auto": "true",
      "smtp_username" : "DCC_USER",
      "smtp_password" : "DCC_PASS"

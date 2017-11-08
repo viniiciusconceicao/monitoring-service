@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER Vinicius Silva <sender@example.com>
+MAINTAINER Vinicius Silva <viniicius.conceicao@gmail.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     snmp \

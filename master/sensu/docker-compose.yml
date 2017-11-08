@@ -39,9 +39,9 @@ client:
    - ./conf.d:/etc/sensu/conf.d
   environment:
     CLIENT_NAME: CoreOs
-    CLIENT_ADDRESS: 10.0.0.1
+    CLIENT_ADDRESS: 200.131.6.6
     CLIENT_SUBSCRIPTIONS: default, snmp
-    RABBITMQ_HOST: 10.0.0.1
+    RABBITMQ_HOST: 200.131.6.6
     RABBITMQ_PORT: 5672
     HOST_DEV_DIR: /host_dev
     HOST_PROC_DIR: /host_proc

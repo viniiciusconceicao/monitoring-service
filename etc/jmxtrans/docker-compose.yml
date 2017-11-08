@@ -3,7 +3,7 @@ jmxtrans:
   volumes:
     - ./conf/:/var/lib/jmxtrans/
   environment:
-    JMXTRANS_GRAPHITE_HOST: 10.0.0.1
+    JMXTRANS_GRAPHITE_HOST: 200.131.6.6
     JMXTRANS_GRAPHITE_PORT: 2003
     JMXTRANS_JMX_HOST: 200.131.6.22
     JMXTRANS_JMX_PORT: 8004

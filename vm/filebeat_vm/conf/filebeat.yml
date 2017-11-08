@@ -8,4 +8,4 @@ filebeat.prospectors:
          fields: ["message"]
   document_type: HistoryServer
 output.logstash:
-  hosts: ["10.0.0.1:5044"]
+  hosts: ["200.131.6.6:5044"]

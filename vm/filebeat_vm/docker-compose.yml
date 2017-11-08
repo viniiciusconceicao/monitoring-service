@@ -7,6 +7,6 @@ filebeat:
     - /home/ubuntu/spark/logs/event:/host/var/log
     - ./start.sh:/start.sh
   environment:
-   - LOGSTASH_HOST=10.0.0.1
+   - LOGSTASH_HOST=200.131.6.6
    - LOGSTASH_PORT=5044
    - SHIPPER_NAME=SparkHistory
