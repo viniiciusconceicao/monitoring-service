@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/afd6b7d3729649d8aa1595ca8a73cfd5)](https://app.codacy.com/app/viniiciusconceicao/monitoring-service?utm_source=github.com&utm_medium=referral&utm_content=viniiciusconceicao/monitoring-service&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/viniiciusconceicao/monitoring-service.svg?branch=clustering)](https://travis-ci.com/viniiciusconceicao/monitoring-service)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=viniiciusconceicao_monitoring-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=viniiciusconceicao_monitoring-service)
 
