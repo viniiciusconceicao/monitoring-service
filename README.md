@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/viniiciusconceicao/monitoring-service.svg?branch=clustering)](https://travis-ci.com/viniiciusconceicao/monitoring-service)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=viniiciusconceicao_monitoring-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=viniiciusconceicao_monitoring-service)
+
 # Distributed Monitoring Service (Seshat)
 This repo presents the monitoring tool derived from Seshat, a layered cloud monitoring architecture which is scalable, elastic, responsive and extensible. Such architecture has been tested through this implementation based on open-source tools to monitor a massive data processing environment in which its scalability has been confirmed on this paper (http://portaldeconteudo.sbc.org.br/index.php/wperformance/article/view/3336).
 
